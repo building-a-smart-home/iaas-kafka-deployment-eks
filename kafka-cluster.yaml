@@ -1,0 +1,26 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: alco-cluster
+  namespace: kafka
+spec:
+  kafka:
+    version: "3.8.0"
+    replicas: 3
+    listeners:
+      - name: plain
+        port: 9092
+        type: loadbalancer  # Change to loadbalancer for external access
+        tls: false
+      - name: tls
+        port: 9093
+        type: loadbalancer  # Change to loadbalancer for external access
+        tls: true
+    storage:
+      type: persistent-claim
+      size: 10Gi
+  zookeeper:
+    replicas: 3
+    storage:
+      type: persistent-claim
+      size: 5Gi
